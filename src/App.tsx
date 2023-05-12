@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import { MenuWrapper } from './admin/layouts/MainLayout/Sidebar';
+import { Main } from './admin/layouts/MainLayout';
+
 
 export default function App() {
   return (
     <div className="App">
-      <MenuWrapper />
+      <Main />
     </div>
   );
 }
