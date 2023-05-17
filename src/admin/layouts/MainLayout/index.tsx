@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuWrapper } from './Sidebar';
+import SidebarMenu from './Sidebar';
 import { Footer } from './Footer';
 
 
@@ -8,7 +8,7 @@ import { Footer } from './Footer';
 export const Main = () => {
     return (
         <div className='Main'>
-            <MenuWrapper />
+            <SidebarMenu />
             <Footer />
         </div>
 )};

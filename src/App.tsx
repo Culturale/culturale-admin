@@ -13,7 +13,7 @@ export default function App() {
   const auth = useAuth();
   return (
     <Provider store={store}>
-      {auth.isInitialized ? content: null}
+      {content}
     </Provider>
   );
 }
