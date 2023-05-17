@@ -28,19 +28,7 @@ const GestionEventos = () => <h2>Gestión eventos</h2>;
 
 export const MenuWrapper = () => {
     return (
-        <Router>
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-
-        <div style={{ marginLeft: '240px' }}>
-          <Routes>
-            <Route path="/usuarios" element={<Usuarios />} />
-            <Route path="/comentarios" element={<Comentarios />} />
-            <Route path="/gestion-eventos" element={<GestionEventos />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+        <div>Hola</div>
   );
 
 }
