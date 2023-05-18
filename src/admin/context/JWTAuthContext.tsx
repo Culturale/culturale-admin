@@ -16,7 +16,7 @@ interface AuthState {
 
 interface AuthContextValue extends AuthState {
     method: 'JWT';
-    login: (username: string, password: string) => Promise<void>;
+    login: (username: string, password: string) => Promise<any>;
     logout: () => void;
 }
 
@@ -152,10 +152,12 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
             username,
             password
         });
+        console.log(response.data.token);
         if (response.data.token) {
-            const userId = decode(response.data.token)['id'];
-            const userResponse = await axios.get<any>(`${SERVER_URL}/username/${userId}`);
-            const user: User = userResponse.data.data;
+            const userDecoded = decode(response.data.token);
+
+            const userResponse = await axios.get<any>(`${SERVER_URL}/users/username/${userDecoded.username}`);
+            const user: User = userResponse.data.user;
             if (user.usertype == 'ADMIN') {
                 setSession(response.data.token);
             }

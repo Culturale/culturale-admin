@@ -19,8 +19,7 @@ import {AxiosError} from 'axios';
 import { setMenu } from '../../../slices/menuItems';
 
 const LoginJWT: FC = () => {
-    const login = useAuth() as any;
-    console.log(login);
+    const auth = useAuth();
     const dispatch = useDispatch();
 
     const handleKeyDown = (event: any) => {
@@ -54,7 +53,7 @@ const LoginJWT: FC = () => {
             {setStatus,setSubmitting}
         ): Promise<void> => {
             try {
-                const response = await login(values.userId, values.password);
+                const response = await auth.login(values.userId, values.password);
                 console.log('sale');
                 if(!response.data.token) {
                     console.log('no hay respuesta');
