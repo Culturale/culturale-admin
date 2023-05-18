@@ -16,7 +16,7 @@ interface AuthState {
 
 interface AuthContextValue extends AuthState {
     method: 'JWT';
-    login: (username: string, password: string) => Promise<void>;
+    login: (username: string, password: string) => Promise<any>;
     logout: () => void;
 }
 
