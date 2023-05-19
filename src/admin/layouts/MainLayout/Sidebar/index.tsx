@@ -1,36 +1,47 @@
+import { Box, List, styled } from '@mui/material';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { matchPath, useLocation } from 'react-router-dom';
+import SidebarMenuItem from './item';
+
+import { RootState, useDispatch, useSelector } from '../../../store';
+import { useEffect } from 'react';
+import { MenuItem, setMenu } from '../../../slices/menuItems';
 
 
+const renderSidebarMenuItems = ({ items, path }: { items: MenuItem[]; path: string }): JSX.Element => (
+  <>
+    {items.map((item,index) => (
+      <SidebarMenuItem
+        key={index}
+        id={item.id}
+        name={item.name}
+        link={item.link}
+      />
+    ))}
+  </>
+);
 
-const Sidebar = () => {
-    return (
-        <Drawer variant="permanent" anchor="left">
-          <List>
-            <ListItem  component={Link} to="/usuarios">
-              <ListItemText primary="Usuarios" />
-            </ListItem>
-            <ListItem  component={Link} to="/comentarios">
-              <ListItemText primary="Comentarios" />
-            </ListItem>
-            <ListItem  component={Link} to="/gestion-eventos">
-              <ListItemText primary="Gestión eventos" />
-            </ListItem>
-          </List>
-        </Drawer>
-      );
-};
+function SidebarMenu() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const menuState = useSelector((state: RootState) => state.menu);
 
-const Usuarios = () => <h2>Usuarios</h2>;
-const Comentarios = () => <h2>Comentarios</h2>;
-const GestionEventos = () => <h2>Gestión eventos</h2>;
+  useEffect(() => {
+    dispatch(setMenu());
+  }, []);
 
-export const MenuWrapper = () => {
-    return (
-        <div>Hola</div>
+  return (
+    <>
+      {menuState.menu.map((section,index) => (
+        <List component="div" key={index}>
+          {renderSidebarMenuItems({
+            items: section.items,
+            path: location.pathname,
+          })}
+        </List>
+      ))}
+    </>
   );
-
 }
 
-
+export default SidebarMenu;

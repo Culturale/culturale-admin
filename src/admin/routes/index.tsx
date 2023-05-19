@@ -7,10 +7,28 @@ const router = [
     {
         path: '/',
         element: (
-            <Authenticated>
-                <Main />
-            </Authenticated>
-        )
+            <Main />
+        ),
+        children: [
+            {
+                path: '/',
+                element: <Navigate to="users" replace />
+            },
+            {
+                path: 'users',
+                element: <Users />
+            },
+            {
+                path: 'comments',
+                element: <Comments />
+            },
+            {
+                path: 'events',
+                element: <Events />
+            }
+
+
+        ]
     }
 ];
 

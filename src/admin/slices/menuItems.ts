@@ -36,17 +36,17 @@ const menu = createSlice({
                         {
                             id: 'btn-users',
                             name: 'Usuarios',
-                            link: '',
+                            link: '/users',
                         },
                         {
                             id: 'btn-comments',
                             name: 'Comentarios',
-                            link: '',
+                            link: '/comments',
                         },
                         {
                             id: 'btn-events',
                             name: 'Gestion Eventos',
-                            link: '',
+                            link: '/events',
                         }
                     ]
                 }
