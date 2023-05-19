@@ -1,12 +1,19 @@
 import React from 'react';
 import './App.css';
-import { Main } from './admin/layouts/MainLayout';
+import {Provider} from 'react-redux';
+import useAuth from './admin/hooks/useAuth';
+import { useRoutes } from 'react-router-dom';
+import router from './admin/routes';
+import store from './admin/store';
+
 
 
 export default function App() {
+  const content = useRoutes(router);
+  const auth = useAuth();
   return (
-    <div className="App">
-      <Main />
-    </div>
+    <Provider store={store}>
+      {auth.isInitialized ? content: null}
+    </Provider>
   );
 }
