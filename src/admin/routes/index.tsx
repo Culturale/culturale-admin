@@ -1,13 +1,18 @@
-import { Navigate } from 'react-router-dom';
-import Authenticated from '../components/Authenticated';
+import { Navigate, Outlet } from 'react-router-dom';
 import { Main } from '../layouts/MainLayout';
+import Users from '../content/Users/Users';
+import { Box } from '@mui/material';
+import Authenticated from '../components/Authenticated';
 import React from 'react';
 
 const router = [
     {
         path: '/',
         element: (
-            <Main />
+            <Authenticated>
+                <Main />
+                <Outlet />
+            </Authenticated>
         ),
         children: [
             {
@@ -17,15 +22,16 @@ const router = [
             {
                 path: 'users',
                 element: <Users />
+                
             },
-            {
+           /* {
                 path: 'comments',
                 element: <Comments />
             },
             {
                 path: 'events',
                 element: <Events />
-            }
+            }*/
 
 
         ]

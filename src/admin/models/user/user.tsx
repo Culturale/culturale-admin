@@ -1,7 +1,7 @@
 import { MongoId } from "../../types/types";
 
 export interface User {
-    id: MongoId;
+    id?: MongoId;
   username: string;
   name: string;
   password: string;
