@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserBox from '../../components/UserBox/UserBox';
 import { User } from '../../models/user/user';
 import { Grid, Box } from '@mui/material';
+import { MongoId } from '../../types/types';
 import axios from 'axios';
 
 const SERVER_URL = 'http://localhost:8082';
@@ -31,13 +32,13 @@ const Users: React.FC = () => {
     fetchReportedUsers();
   }, []);
 
-  const deleteUser = async (username: string) => {
+  const deleteUser = async (username: string, id: MongoId) => {
     try {
       // Eliminar la tarjeta del usuario del array reportedUsers
       setReportedUsers(prevUsers => prevUsers.filter(user => user.username !== username));
       
       // Enviar solicitud de eliminación al servidor
-      await axios.delete(`${SERVER_URL}/users/deleteUser`, { data: { id: username } });
+      await axios.delete(`${SERVER_URL}/users/deleteUser`, { data: { id: id } });
       
       console.log('Usuario eliminado correctamente');
     } catch (error) {
