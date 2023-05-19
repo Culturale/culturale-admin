@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     color: '#FFF',
+    zIndex: 9999,
   },
   copyright: {
     display: 'flex',
