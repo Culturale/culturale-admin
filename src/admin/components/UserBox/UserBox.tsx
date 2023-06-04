@@ -2,10 +2,11 @@ import React from 'react';
 import { User } from '../../models/user/user';
 import { Typography, Card, CardContent, List, ListItem, ListItemText, Button } from '@mui/material';
 import { styled } from '@mui/system';
+import { MongoId } from '../../types/types';
 
 interface UserProps {
     user: User
-    onDelete: (username: string) => void;
+    onDelete: (username: string, id: MongoId) => void;
 };
 
 const StyledCard = styled(Card)({
@@ -27,7 +28,9 @@ const DeleteButton = styled(Button)({
   
   const UserBox: React.FC<UserProps> = ({ user, onDelete }) => {
     const handleDeleteUser = () => {
-      onDelete(user.username)
+      if (user.id) {
+        onDelete(user.username, user.id)
+      }
     };
 
   
