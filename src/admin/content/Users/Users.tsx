@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import UserBox from '../../components/UserBox/UserBox';
 import { User } from '../../models/user/user';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Snackbar, IconButton } from '@mui/material';
 import { MongoId } from '../../types/types';
 import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close';
 
 const SERVER_URL = 'http://localhost:8082';
 
@@ -22,6 +23,7 @@ const getUsersReported = async (): Promise<User[]> => {
 
 const Users: React.FC = () => {
   const [reportedUsers, setReportedUsers] = useState<User[]>([]);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false); // Estado para controlar la visibilidad del mensaje
 
   useEffect(() => {
     const fetchReportedUsers = async () => {
@@ -36,16 +38,20 @@ const Users: React.FC = () => {
     try {
       // Eliminar la tarjeta del usuario del array reportedUsers
       setReportedUsers(prevUsers => prevUsers.filter(user => user.username !== username));
-      
+
       // Enviar solicitud de eliminación al servidor
       await axios.delete(`${SERVER_URL}/users/deleteUser`, { data: { id: id } });
-      
+
       console.log('Usuario eliminado correctamente');
+      setShowDeleteMessage(true); // Mostrar el mensaje después de eliminar el usuario
     } catch (error) {
       console.error('Error al eliminar el usuario:', error);
     }
   };
-  
+
+  const handleCloseDeleteMessage = () => {
+    setShowDeleteMessage(false); // Ocultar el mensaje al hacer clic en la cruz
+  };
 
   return (
     <Grid container spacing={2} style={{ marginTop: 0 }}>
@@ -56,7 +62,22 @@ const Users: React.FC = () => {
           </Box>
         </Grid>
       ))}
-    </Grid>
+     <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={showDeleteMessage}
+        autoHideDuration={5000}
+        onClose={handleCloseDeleteMessage}
+        message="Usuario eliminado correctamente"
+        action={
+          <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDeleteMessage}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      />
+      </Grid>
   );
 };
 

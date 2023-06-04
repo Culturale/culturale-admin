@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import CommentBox from '../../components/CommentBox/CommentBox';
 import { Comment } from '../../models/Comment/comment';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Snackbar, IconButton } from '@mui/material';
 import axios from 'axios';
 import { MongoId } from '../../types/types';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const SERVER_URL = 'http://localhost:8082';
@@ -26,6 +26,7 @@ const getCommentsReported = async (): Promise<Comment[]> => {
 
 const Comments: React.FC = () => {
   const [reportedComments, setReportedComments] = useState<Comment[]>([]);
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
   useEffect(() => {
     const fetchReportedComments = async () => {
@@ -45,12 +46,15 @@ const Comments: React.FC = () => {
       await axios.delete(`${SERVER_URL}/events/deleteReview`, { data: { id: id } });
       
       console.log('Review eliminada correctamente');
+      setShowDeleteMessage(true);
     } catch (error) {
       console.error('Error al eliminar la review:', error);
     }
   };
 
-
+  const handleCloseDeleteMessage = () => {
+    setShowDeleteMessage(false); // Ocultar el mensaje al hacer clic en la cruz
+  };
   
 
   return (
@@ -62,7 +66,23 @@ const Comments: React.FC = () => {
             </Box>
             </Grid>
         ))}
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={showDeleteMessage}
+        autoHideDuration={5000}
+        onClose={handleCloseDeleteMessage}
+        message="Comentario eliminado correctamente"
+        action={
+          <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDeleteMessage}>
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      />
     </Grid>
+    
   );
 };
 
