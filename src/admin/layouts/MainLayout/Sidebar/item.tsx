@@ -24,7 +24,7 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
                 disableRipple
                 component={RouterLink}
                 to={link ? link: ''}
-                style={{fontFamily: '"Roboto'}}
+                style={{fontFamily: 'sans-serif', color: 'white'}}
             >{name}
             </Button>
         </ListItem>

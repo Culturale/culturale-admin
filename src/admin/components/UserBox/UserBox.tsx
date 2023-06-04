@@ -6,7 +6,7 @@ import { MongoId } from '../../types/types';
 
 interface UserProps {
     user: User
-    onDelete: (username: string, id: MongoId) => void;
+    onDelete: (username: string, _id: MongoId) => void;
 };
 
 const StyledCard = styled(Card)({
@@ -28,8 +28,8 @@ const DeleteButton = styled(Button)({
   
   const UserBox: React.FC<UserProps> = ({ user, onDelete }) => {
     const handleDeleteUser = () => {
-      if (user.id) {
-        onDelete(user.username, user.id)
+      if (user._id) {
+        onDelete(user.username, user._id)
       }
     };
 

@@ -13,7 +13,7 @@ const StyledBox = styled(Box)({
   left: 0,
   top: 0,
   bottom: 0,
-  backgroundColor: '#f0f0f0', // Ajusta el color de fondo según tus necesidades
+  backgroundColor: '#76d7b8', // Ajusta el color de fondo según tus necesidades
   overflowY: 'auto', // Añade scroll vertical si el contenido excede el alto
 });
 

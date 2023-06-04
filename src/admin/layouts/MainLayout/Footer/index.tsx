@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   footer: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#34b38a',
     position: 'fixed',
     bottom: 0,
     left: 0,
