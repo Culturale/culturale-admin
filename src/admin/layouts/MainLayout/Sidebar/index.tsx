@@ -17,10 +17,21 @@ const StyledBox = styled(Box)({
   overflowY: 'auto', // Añade scroll vertical si el contenido excede el alto
 });
 
-const renderSidebarMenuItems = ({ items, path }: { items: MenuItem[]; path: string }): JSX.Element => (
+const renderSidebarMenuItems = ({
+  items,
+  path,
+}: {
+  items: MenuItem[];
+  path: string;
+}): JSX.Element => (
   <>
     {items.map((item, index) => (
-      <SidebarMenuItem key={index} id={item.id} name={item.name} link={item.link} />
+      <SidebarMenuItem
+        key={index}
+        id={item.id}
+        name={item.name}
+        link={item.link}
+      />
     ))}
   </>
 );
@@ -31,6 +42,7 @@ function SidebarMenu() {
   const menuState = useSelector((state: RootState) => state.menu);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(setMenu());
   }, []);
 
