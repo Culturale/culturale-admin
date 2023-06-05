@@ -1,9 +1,33 @@
-import React, { useState } from 'react';
-import { Button, TextField, Grid, Container, Typography, Alert } from '@mui/material';
+import React, { useState, ReactNode } from 'react';
+import { Button, TextField, Grid, Container, Typography, Alert, Select, MenuItem } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 import { Event } from '../../models/Event/event';
+import { CategoriaEnum } from '../../types/types';
 import axios from 'axios';
 
 const SERVER_URL = 'http://localhost:8082';
+
+const categoriaValues = [
+  'agenda:categories/activitats-virtuals',
+  'agenda:categories/exposicions',
+  'agenda:categories/concerts',
+  'agenda:categories/teatre',
+  'agenda:categories/festivals-i-mostres',
+  'agenda:categories/rutes-i-visites',
+  'agenda:categories/infantil',
+  'agenda:categories/festes',
+  'agenda:categories/conferencies',
+  'agenda:categories/fires-i-mercats',
+  'agenda:categories/dansa',
+  'agenda:categories/cicles',
+];
+
+
+
+
+
+  // Luego puedes utilizar el array `categoriaValues` en cualquier parte de tu código
+  
 
 const Events: React.FC = () => {
   const [event, setEvent] = useState<Event>({
@@ -19,6 +43,7 @@ const Events: React.FC = () => {
     price: '',
     url: '',
     photo: '',
+    categoria: 'agenda:categories/activitats-virtuals',
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,8 +57,22 @@ const Events: React.FC = () => {
     }));
   };
 
+  const handleSelect = (e: SelectChangeEvent<string>, child: ReactNode) => {
+    const { value } = e.target;
+    setEvent(prevEvent => ({
+      ...prevEvent,
+      categoria: value,
+    }));
+  };
+  
+
+
+
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(event);
     await axios.post(`${SERVER_URL}/events/create`, event)
     .then(response => {
         setSuccessMessage('Evento creado correctamente');
@@ -51,6 +90,7 @@ const Events: React.FC = () => {
             price: '',
             url: '',
             photo: '',
+            categoria: 'agenda:categories/activitats-virtuals',
           });
     }).catch(err => {
         setErrorMessage('Error al crear el evento');
@@ -201,6 +241,20 @@ const Events: React.FC = () => {
               onChange={handleChange}
               fullWidth
             />
+          </Grid>
+          <Grid item xs={12}>
+            <Select 
+              labelId="Categoria"
+              value={event.categoria}
+              onChange={handleSelect}
+              required>
+                {Object.values(categoriaValues).map((opcion) => (
+              <MenuItem key={opcion} value={opcion}>
+                {opcion}
+              </MenuItem>
+               ))}
+
+            </Select>
           </Grid>
         </Grid>
         <Button type="submit" variant="contained" color="primary" style={{marginTop: '15px'}}>

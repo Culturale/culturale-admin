@@ -1,5 +1,7 @@
 
 
+import { CategoriaEnum } from "../../types/types";
+
 export interface Event {
 codi: number;
   denominacio: string;
@@ -13,4 +15,5 @@ codi: number;
   price?: string;
   url?: string;
   photo?: string;
+  categoria: string;
 }
