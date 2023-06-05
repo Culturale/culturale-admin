@@ -6,7 +6,7 @@ import { decode, verify, JWT_SECRET } from '../utils/jwt';
 import { User } from '../models/user/user';
 
 
-const SERVER_URL = "https://34.175.235.94";
+const SERVER_URL = "http://34.175.235.94";
 
 interface AuthState {
     isInitialized: boolean;

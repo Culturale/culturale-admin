@@ -6,7 +6,7 @@ import axios from 'axios';
 import { MongoId } from '../../types/types';
 
 
-const SERVER_URL = 'https://34.175.235.94';
+const SERVER_URL = 'http://34.175.235.94';
 
 const getCommentsReported = async (): Promise<Comment[]> => {
   try {
