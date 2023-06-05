@@ -4,7 +4,6 @@ import { Comment } from '../../models/Comment/comment';
 import { Grid, Box, Snackbar, IconButton } from '@mui/material';
 import axios from 'axios';
 import { MongoId } from '../../types/types';
-import CloseIcon from '@mui/icons-material/Close';
 
 
 const SERVER_URL = 'http://localhost:8082';
@@ -53,9 +52,22 @@ const Comments: React.FC = () => {
   };
 
   const handleCloseDeleteMessage = () => {
-    setShowDeleteMessage(false); // Ocultar el mensaje al hacer clic en la cruz
+    setShowDeleteMessage(false); // Hide the message
   };
-  
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (showDeleteMessage) {
+      timer = setTimeout(handleCloseDeleteMessage, 2000); // Set the timer to hide the message after 2 seconds
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer); // Clear the timer if the component unmounts or the state changes
+      }
+    };
+  }, [showDeleteMessage]);
 
   return (
     <Grid container spacing={2} style={{ marginTop: 0 }}>
@@ -72,14 +84,9 @@ const Comments: React.FC = () => {
           horizontal: 'right',
         }}
         open={showDeleteMessage}
-        autoHideDuration={5000}
+        autoHideDuration={null}
         onClose={handleCloseDeleteMessage}
         message="Comentario eliminado correctamente"
-        action={
-          <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseDeleteMessage}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        }
       />
     </Grid>
     

@@ -2,7 +2,6 @@ import React, { useState, ReactNode } from 'react';
 import { Button, TextField, Grid, Container, Typography, Alert, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Event } from '../../models/Event/event';
-import { CategoriaEnum } from '../../types/types';
 import axios from 'axios';
 
 const SERVER_URL = 'http://localhost:8082';
@@ -42,7 +41,6 @@ const Events: React.FC = () => {
     long: 0,
     price: '',
     url: '',
-    photo: '',
     categoria: 'agenda:categories/activitats-virtuals',
   });
   const [successMessage, setSuccessMessage] = useState('');
@@ -89,7 +87,7 @@ const Events: React.FC = () => {
             long: 0,
             price: '',
             url: '',
-            photo: '',
+
             categoria: 'agenda:categories/activitats-virtuals',
           });
     }).catch(err => {
@@ -229,15 +227,6 @@ const Events: React.FC = () => {
               label="URL"
               name="url"
               value={event.url}
-              onChange={handleChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              type='file'
-              name="photo"
-              value={event.photo}
               onChange={handleChange}
               fullWidth
             />
