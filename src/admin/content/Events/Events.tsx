@@ -4,7 +4,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { Event } from '../../models/Event/event';
 import axios from 'axios';
 
-const SERVER_URL = 'https://32.175.235.94';
+const SERVER_URL = 'https://34.175.235.94';
 
 const categoriaValues = [
   'agenda:categories/activitats-virtuals',
