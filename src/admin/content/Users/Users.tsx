@@ -5,7 +5,7 @@ import { Grid, Box, Snackbar, IconButton } from '@mui/material';
 import { MongoId } from '../../types/types';
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:8082';
+const SERVER_URL = 'https://32.175.235.94';
 
 const getUsersReported = async (): Promise<User[]> => {
   try {
